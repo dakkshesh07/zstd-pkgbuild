@@ -24,6 +24,11 @@ prepare() {
   sed '/build static library to build tests/d' -i build/cmake/CMakeLists.txt
   sed 's/libzstd_static/libzstd_shared/g' -i build/cmake/tests/CMakeLists.txt
   patch -p1 <(curl -s https://github.com/facebook/zstd/commit/eceecc5b2cade40e2ffe7e4ff4c7d2e16883961a.patch)
+  patch -p1 <(curl -s https://github.com/facebook/zstd/commit/f92ec5ea54d64207f5ffd30b5c746367a6e75dc4.patch)
+  patch -p1 <(curl -s https://github.com/facebook/zstd/commit/7a18d709ae5a8ba53c5199adb2e8461cb216fb00.patch)
+  patch -p1 <(curl -s https://github.com/facebook/zstd/commit/03903f57012054852c0c26daca7131a130bb5cbf.patch)
+  patch -p1 <(curl -s https://github.com/facebook/zstd/commit/9e1b4828e56a028efa0efdd7c30a58e6dd48c8c1.patch)
+  patch -p1 <(curl -s https://github.com/facebook/zstd/commit/9e1b4828e56a028efa0efdd7c30a58e6dd48c8c1.patch)
 }
 
 build() {
