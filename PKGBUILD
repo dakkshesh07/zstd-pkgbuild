@@ -4,15 +4,16 @@
 # Contributor: Johan Förberg <johan@forberg.se>
 
 pkgname=zstd
-pkgver=1.5.2
-pkgrel=7
+pkgver=$PKG_VER
+pkgrel=$PKG_REL
 pkgdesc='Zstandard - Fast real-time compression algorithm'
 url='https://facebook.github.io/zstd/'
 arch=(x86_64)
 license=(BSD GPL2)
 depends=(glibc gcc-libs zlib xz lz4)
 makedepends=(cmake gtest ninja)
-provides=(libzstd.so)
+provides=(libzstd.so libzstd.so=1-64)
+conflicts=(libzstd.so libzstd.so=1-64)
 options=(!debug lto)
 source=(https://github.com/facebook/zstd/releases/download/v${pkgver}/zstd-${pkgver}.tar.zst)
 sha256sums=('3ea06164971edec7caa2045a1932d757c1815858e4c2b68c7ef812647535c23f')
