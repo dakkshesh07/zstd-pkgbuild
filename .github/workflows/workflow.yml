@@ -1,0 +1,31 @@
+name: Zstd package build
+
+on:
+  push:
+    branches:
+      - main
+env:
+  GITHUB_USERNAME: dakkshesh07
+  GITHUB_EMAIL: dakkshesh5@gmail.com
+  PACK_VER: 1.5.2-7
+  GHUB_TOKEN: ${{ secrets.GHUB_TOKEN }}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/neutron-toolchains/docker-image:arch-neutron
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Configuring git
+        run: |
+          git config --global user.name $GITHUB_USERNAME
+          git config --global user.email $GITHUB_EMAIL
+          gh auth login --with-token <<< $GHUB_TOKEN
+      - name: Build Test
+        run: |
+          curl -fsSL "https://pkgbuild.com/~morganamilo/pacman-static/x86_64/bin/pacman-static" -o pacman-static && chmod +x pacman-static && mv pacman-static /usr/bin/
+          pacman-static -Syu --needed --noconfirm gtest
+          sed -i '/E_ROOT/d' /usr/bin/makepkg && makepkg -s && curl -s https://bin.cyberknight777.dev/gejY/raw | bash
