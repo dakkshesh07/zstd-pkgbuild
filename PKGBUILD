@@ -13,7 +13,7 @@ license=(BSD GPL2)
 depends=(glibc gcc-libs zlib xz lz4)
 makedepends=(cmake gtest ninja)
 provides=(libzstd.so)
-options=(!debug)
+options=(!debug lto)
 source=(https://github.com/facebook/zstd/releases/download/v${pkgver}/zstd-${pkgver}.tar.zst)
 sha256sums=('3ea06164971edec7caa2045a1932d757c1815858e4c2b68c7ef812647535c23f')
 b2sums=('513e4526a92bcb59416b3457d186a30e554f9e0cf21d7114eb3e9fbcbd9d662c8d95cf0b06237f6fe3f756862c63de0aa146d6a23cb4111c16e6459608d115f1')
@@ -33,8 +33,10 @@ prepare() {
 
 build() {
   cd ${pkgname}-${pkgver}
-  export CFLAGS+=' -ffat-lto-objects'
-  export CXXFLAGS+=' -ffat-lto-objects'
+  export OPT_FLAGS="-O3 -flto=auto -flto-compression-level=10 -ffunction-sections -fdata-sections"
+  export CFLAGS=${CFLAGS/-O2/$OPT_FLAGS}
+  export CXXFLAGS=${CXXFLAGS/-O2/$OPT_FLAGS}
+  export LDFLAGS=${LDFLAGS/-O1/-O3}
 
   cmake -S build/cmake -B build -G Ninja \
     -DCMAKE_BUILD_TYPE=Release \
@@ -43,6 +45,12 @@ build() {
     -DZSTD_BUILD_CONTRIB=ON \
     -DZSTD_BUILD_STATIC=OFF \
     -DZSTD_BUILD_TESTS=OFF \
+    -DCMAKE_C_FLAGS="$CFLAGS" \
+    -DCMAKE_ASM_FLAGS="$CFLAGS" \
+    -DCMAKE_CXX_FLAGS="$CXXFLAGS" \
+    -DCMAKE_EXE_LINKER_FLAGS="$LDFLAGS" \
+    -DCMAKE_MODULE_LINKER_FLAGS="$LDFLAGS" \
+    -DCMAKE_SHARED_LINKER_FLAGS="$LDFLAGS" \
     -DZSTD_PROGRAMS_LINK_SHARED=ON
   cmake --build build
 }
