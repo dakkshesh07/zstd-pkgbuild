@@ -31,7 +31,7 @@ build() {
   export CXXFLAGS+=' -ffat-lto-objects'
 
   cmake -S build/cmake -B build -G Ninja \
-    -DCMAKE_BUILD_TYPE=None \
+    -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_INSTALL_LIBDIR=lib \
     -DZSTD_BUILD_CONTRIB=ON \
