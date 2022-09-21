@@ -23,6 +23,7 @@ prepare() {
   # avoid error on tests without static libs, we use LD_LIBRARY_PATH
   sed '/build static library to build tests/d' -i build/cmake/CMakeLists.txt
   sed 's/libzstd_static/libzstd_shared/g' -i build/cmake/tests/CMakeLists.txt
+  patch -p1 <(curl -s https://github.com/facebook/zstd/commit/eceecc5b2cade40e2ffe7e4ff4c7d2e16883961a.patch)
 }
 
 build() {
