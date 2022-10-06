@@ -8,7 +8,7 @@ env:
   GITHUB_USERNAME: dakkshesh07
   GITHUB_EMAIL: dakkshesh5@gmail.com
   PACK_VER_SHORT: 1.5.2
-  PACK_REL: 8
+  PACK_REL: 9
   GHUB_TOKEN: ${{ secrets.GHUB_TOKEN }}
 
 jobs:
