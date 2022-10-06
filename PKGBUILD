@@ -34,10 +34,10 @@ prepare() {
 
 build() {
   cd ${pkgname}-${pkgver}
-  export OPT_FLAGS="-O3 -flto=auto -flto-compression-level=10 -ffunction-sections -fdata-sections"
+  export OPT_FLAGS="-O3 -flto=auto -flto-compression-level=10 -ffunction-sections -fdata-sections -fgraphite-identity -floop-nest-optimize"
   export CFLAGS=${CFLAGS/-O2/$OPT_FLAGS}
   export CXXFLAGS=${CXXFLAGS/-O2/$OPT_FLAGS}
-  export LDFLAGS=${LDFLAGS/-O1/-O3}
+  export LDFLAGS=${LDFLAGS/-O1/-O3,--gc-sections}
 
   cmake -S build/cmake -B build -G Ninja \
     -DCMAKE_BUILD_TYPE=Release \
