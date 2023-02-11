@@ -5,10 +5,10 @@ on:
     branches:
       - main
 env:
-  GITHUB_USERNAME: dakkshesh07
+  GITHUB_USERNAME: Dakkshesh
   GITHUB_EMAIL: dakkshesh5@gmail.com
-  PACK_VER_SHORT: 1.5.2
-  PACK_REL: 9
+  PACK_VER_SHORT: 1.5.4
+  PACK_REL: 1
   GHUB_TOKEN: ${{ secrets.GHUB_TOKEN }}
 
 jobs:
