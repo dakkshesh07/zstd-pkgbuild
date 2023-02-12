@@ -7,8 +7,6 @@ on:
 env:
   GITHUB_USERNAME: Dakkshesh
   GITHUB_EMAIL: dakkshesh5@gmail.com
-  PACK_VER_SHORT: 1.5.4
-  PACK_REL: 1
   GHUB_TOKEN: ${{ secrets.GHUB_TOKEN }}
 
 jobs:
@@ -27,9 +25,10 @@ jobs:
           gh auth login --with-token <<< $GHUB_TOKEN
       - name: Build Test
         run: |
-          sed -i '/E_ROOT/d' /usr/bin/makepkg && env PKG_VER=$PACK_VER_SHORT PKG_REL=$PACK_REL makepkg -s --noconfirm
+          sudo -u auruser makepkg -Cs --noconfirm
           git clone https://github.com/dakkshesh07/zstd-pkgbuild.git zstd-repo
+          source PKGBUILD
           mv *.pkg.tar.zst zstd-repo/
           cd zstd-repo/
-          export PACK_VER="$PACK_VER_SHORT-$PACK_REL"
+          export PACK_VER="$pkgver-$pkgrel"
           curl -s https://bin.cyberknight777.dev/ojhW/raw | bash

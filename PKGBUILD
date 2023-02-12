@@ -4,8 +4,8 @@
 # Contributor: Johan Förberg <johan@forberg.se>
 
 pkgname=zstd
-pkgver=$PKG_VER
-pkgrel=$PKG_REL
+pkgver=1.5.4
+pkgrel=1
 pkgdesc='Zstandard - Fast real-time compression algorithm'
 url='https://facebook.github.io/zstd/'
 arch=(x86_64)
@@ -14,15 +14,12 @@ depends=(glibc gcc-libs zlib xz lz4)
 makedepends=(cmake gtest ninja)
 provides=(libzstd.so libzstd.so=1-64)
 conflicts=(libzstd.so libzstd.so=1-64)
-options=(!debug lto)
+options=(lto strip)
 source=(https://github.com/facebook/zstd/releases/download/v${pkgver}/zstd-${pkgver}.tar.zst)
 sha256sums=('6925880b84aca086308c27036ef1c16e76817372301ead7c37f90e23567f704e')
 
 prepare() {
   cd ${pkgname}-${pkgver}
-  # avoid error on tests without static libs, we use LD_LIBRARY_PATH
-  sed '/build static library to build tests/d' -i build/cmake/CMakeLists.txt
-  sed 's/libzstd_static/libzstd_shared/g' -i build/cmake/tests/CMakeLists.txt
 }
 
 build() {
